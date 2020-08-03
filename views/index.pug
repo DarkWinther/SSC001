@@ -6,11 +6,25 @@ html(lang="en")
     title Server side scripting
   body
     h1 Hello World
-    if tekst2
-      // Ikke rendered medmindre tekst2 eksisterer
-      p #{tekst2}
     include partials/nav.pug
     if tekst
       i #{tekst}
-    each val in arr
-      p= val
+    if tekst2
+      // Ikke renderet medmindre tekst2 eksisterer
+      p #{tekst2}
+    if num
+      p #{num}
+    if isTrue
+      p #{isTrue}
+    if arr
+      each val in arr
+        p= val
+    strong Id: #{id}
+    form(method="post")
+      input(name="text")
+      br
+      input(name="num" type="number")
+      br
+      input(name="isTrue", type="checkbox")
+      br
+      button(type="submit") SEND
