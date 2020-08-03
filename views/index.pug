@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Server side scripting
+  body
+    h1 Hello World
+    if tekst2
+      // Ikke rendered medmindre tekst2 eksisterer
+      p #{tekst2}
+    include partials/nav.pug
+    if tekst
+      i #{tekst}
+    each val in arr
+      p= val
