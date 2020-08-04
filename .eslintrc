@@ -5,7 +5,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:prettier/recommended"
+    // "plugin:prettier/recommended"
+    "prettier"
   ],
   "plugins": ["@typescript-eslint", "pug", "prettier"],
   "ignorePatterns": ["tsconfig.json"],
@@ -20,6 +21,7 @@
     }
   },
   "rules": {
-    "import/no-named-as-default-member": 0
+    "import/no-named-as-default-member": 0,
+    "prettier/prettier": "error"
   }
 }
