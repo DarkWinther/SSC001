@@ -1,16 +1,14 @@
-import { Schema, model } from 'mongoose';
-import { ObjectID } from 'bson';
+import { Schema, model, Document } from 'mongoose';
 
-export interface Game {
-  _id: ObjectID;
+export interface IGame extends Document {
   title: string;
-  publisher: string;
-  releaseDate: Date;
-  genre: string;
-  coverImg: string;
+  publisher?: string;
+  releaseDate?: Date;
+  genre?: string;
+  coverImg?: string;
 }
 
-const GameSchema = new Schema<Game>({
+const GameSchema = new Schema({
   title: String,
   publisher: String,
   releaseDate: Date,
@@ -18,4 +16,4 @@ const GameSchema = new Schema<Game>({
   coverImg: String,
 });
 
-export const GameModel = model('Game', GameSchema, 'games');
+export const GameModel = model<IGame>('Game', GameSchema, 'games');

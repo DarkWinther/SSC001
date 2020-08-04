@@ -5,8 +5,9 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon",
-    "lint": "eslint --ext pug,js,json,ts .",
-    "setDefaults": "ts-node src/scripts/defaults.ts"
+    "tsc": "tsc",
+    "lint": "eslint --ext js,ts,json,pug .",
+    "insertDefaults": "ts-node src/scripts/insertDefaults.ts"
   },
   "repository": {
     "type": "git",
