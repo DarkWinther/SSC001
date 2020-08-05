@@ -1,4 +1,4 @@
 nav
-  - const homeActive = page === 'home' && 'active';
-  a(href="/", class=homeActive) Forside
-  //- a(href="/test"  class=(page === 'test' && 'active')) Test
+  a(href="/", class=(page === 'home' && 'active')) Forside
+  a(href="/game", class=(page === 'game' && 'active')) Alle spil
+  a(href="/edit", class=(page === 'edit' && 'active')) Administrer spil

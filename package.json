@@ -2,12 +2,13 @@
   "name": "ssc001",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "app.ts",
   "scripts": {
     "dev": "nodemon",
     "tsc": "tsc",
     "lint": "eslint --ext js,ts,json,pug .",
-    "insertDefaults": "ts-node src/scripts/insertDefaults.ts"
+    "lint:fix": "npm run lint -- --fix",
+    "insertDefaults": "ts-node src/scripts/insert-defaults.ts"
   },
   "repository": {
     "type": "git",

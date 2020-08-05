@@ -1,0 +1,10 @@
+mixin input(name, type, value, error)
+  label.input
+    - const capitalName = name[0].toUpperCase() + name.slice(1);
+    span= capitalName
+    if type === 'checkbox'
+      input(name=name, checked=(!!value), type=type)
+    else
+      input(name=name, value=value type=type)
+    if error
+      span.error= error

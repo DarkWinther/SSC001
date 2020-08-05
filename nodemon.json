@@ -1,6 +1,11 @@
 {
-  "ignore": ["package-lock.json", "dist/**/*", "node_modules/**/*"],
-  "ext": "json,ts,pug",
-  "exec": "ts-node server.ts",
+  "ignore": [
+    "package-lock.json",
+    "dist/**/*",
+    "node_modules/**/*",
+    ".vscode/**/*"
+  ],
+  "ext": "js,ts,pug,json",
+  "exec": "ts-node app.ts",
   "delay": 1
 }

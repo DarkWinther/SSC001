@@ -1,0 +1,20 @@
+extends ../index.pug
+include ../mixins/game.pug
+append head
+  script.
+    function ret(param) {
+      console.log(param);
+    }
+    function slet(param) {
+      console.log(param);
+    }
+
+block content
+  main
+    if games
+      ul.games
+        each game in games
+          li
+            +game(game)
+            button(onclick=`ret("${game._id}");`) RET
+            button(onclick=`slet("${game._id}");`) SLET

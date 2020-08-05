@@ -7,9 +7,7 @@ export const dbConnect = async (): Promise<void> => {
     useUnifiedTopology: true,
   });
   connection.on('error', console.error.bind(console, 'connection error:'));
-  connection.once('open', () => {
-    console.log('Connected to mongoDb');
-  });
+  console.log('Connected to mongodb');
 };
 
 export const dbDisconnect = async (): Promise<void> => {

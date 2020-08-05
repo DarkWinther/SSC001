@@ -1,3 +1,99 @@
+/* Global */
 body {
-  background-color: salmon;
+  background-color: skyblue;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Nav */
+nav {
+  padding: 12px;
+}
+
+nav a {
+  color: red;
+}
+
+nav a:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+nav a:visited {
+  color: chocolate;
+}
+
+nav a:active {
+  color: darkmagenta;
+}
+
+nav a.active {
+  font-style: bold;
+}
+
+/* Main */
+main {
+  width: 600px;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid black;
+  margin: auto;
+}
+
+/* Form */
+form label.input {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-items: flex-start;
+}
+
+form label.input:not(:first-of-type) {
+  margin-top: 10px;   
+}
+
+form label.input .error {
+  grid-column: 1 / span 2;
+  color: crimson;
+  font-size: 12px;
+}
+
+form input[type='submit'] {
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 6px;
+  background-color: silver;
+  border-radius: 4px;
+}
+
+form input[type='submit']:hover {
+  background-color: grey;
+  border-color: grey;
+}
+
+/* Game list */
+.games {
+  list-style: none;
+  padding: 0;
+}
+
+.games li:not(:first-of-type) {
+  margin-top: 16px;
+}
+
+.games li button {
+  cursor: pointer;
+  padding: 6px;
+  background-color: silver;
+  border-radius: 4px;
+}
+
+.games li button:hover {
+  background-color: grey;
+  border-color: grey;
+}
+
+.games li button:first-of-type {
+  margin-right: 8px;
 }

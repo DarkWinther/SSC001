@@ -2,6 +2,11 @@ doctype html
 html(lang="en")
   head
     include ./head.pug
+    block head
 
   body
-    include ./default.pug
+    include ./partials/nav
+    block content
+      main
+        include ./mixins/game.pug
+        +game(game)

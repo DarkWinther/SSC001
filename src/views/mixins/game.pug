@@ -1,0 +1,5 @@
+mixin game(game)
+  each val, key in game
+    unless key === '_id'
+      - const capitalKey = key[0].toUpperCase() + key.slice(1);
+      div(class=key) #{capitalKey}: #{val}
