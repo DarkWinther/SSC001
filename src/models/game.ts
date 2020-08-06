@@ -10,6 +10,7 @@ export interface ISimpleGame {
   genre?: string;
   metascore?: number;
   goty?: boolean;
+  coverImg?: string;
 }
 
 export interface IGame extends Document {
@@ -19,6 +20,7 @@ export interface IGame extends Document {
   genre?: string;
   metascore?: number;
   goty?: boolean;
+  coverImg?: string;
 }
 
 const GameSchema = new Schema({
@@ -28,6 +30,7 @@ const GameSchema = new Schema({
   genre: String,
   metascore: Number,
   goty: Boolean,
+  coverImg: String,
 });
 
 export const GameModel = model<IGame>('Game', GameSchema, 'games');
@@ -52,6 +55,7 @@ export const toSimpleGame = (game?: IGame | null): ISimpleGame => {
     genre: game.genre,
     metascore: game.metascore,
     goty: typeof game.goty === 'boolean' ? game.goty : game.goty === 'on',
+    coverImg: game.coverImg,
   })
     .filter(([, val]) => !!val)
     .reduce((total, [key, val]) => ({ ...total, [key]: val }), {});

@@ -8,6 +8,8 @@ import {
   del,
 } from './src/mongoose-util/game-crud';
 import { isValidObjectId } from 'mongoose';
+import { UploadedFile } from 'express-fileupload';
+import fs from 'fs';
 
 interface GameError {
   hasError: boolean;
@@ -58,6 +60,33 @@ const getCurrentGame = async (req: Request): Promise<ISimpleGame | null> => {
   return null;
 };
 
+const uploadFile = (req: Request, prevName?: string) => {
+  const moveFile = (file: UploadedFile) => {
+    file.mv(`./src/public/images/${file.name}`, err => {
+      if (err) console.error(err);
+      console.log(`Uploaded file - ${file.name}`);
+    });
+  };
+
+  if (req.files?.coverImg) {
+    const image = req.files.coverImg as UploadedFile;
+    if (prevName) {
+      const path = `./src/public/images/${prevName}`;
+      fs.exists(path, exists => {
+        if (exists) {
+          fs.unlink(path, error => {
+            if (error) console.error(error);
+            console.log(`Deleted file - ${prevName}`);
+            moveFile(image);
+          });
+        } else {
+          moveFile(image);
+        }
+      });
+    }
+  }
+};
+
 export default (app: Router): void => {
   app.get('/', async (req, res) => {
     const randomGame = await findRandom();
@@ -85,10 +114,12 @@ export default (app: Router): void => {
     // Hvis brugeren har valgt at ændre et spil
     if (selected) {
       const updatedGame = {
-        _id: selected._id,
         ...toSimpleGame(req.body),
+        _id: selected._id,
+        coverImg: (req.files?.coverImg as UploadedFile)?.name,
       };
       if (!validate(updatedGame).hasError) {
+        uploadFile(req, selected.coverImg);
         await update(new GameModel(updatedGame));
       }
       return res.render('pages/edit-game', {
@@ -99,8 +130,12 @@ export default (app: Router): void => {
     }
 
     // Hvis brugeren har valgt at oprette et spil
-    const newGame = toSimpleGame(req.body);
+    const newGame = {
+      ...toSimpleGame(req.body),
+      coverImg: (req.files?.coverImg as UploadedFile)?.name,
+    };
     if (!validate(newGame).hasError) {
+      uploadFile(req);
       create(new GameModel(newGame));
     }
     return res.render('pages/edit-game', {

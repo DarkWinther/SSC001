@@ -1,6 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import initRoutes from './routes';
+import fileUpload from 'express-fileupload';
 
 const app = express();
 const port = 3000;
@@ -8,6 +9,9 @@ const port = 3000;
 // Pug
 app.set('view engine', 'pug');
 app.set('views', './src/views');
+
+// Express-Fileupload
+app.use(fileUpload());
 
 // Express
 app.use(express.static('./src/public'));

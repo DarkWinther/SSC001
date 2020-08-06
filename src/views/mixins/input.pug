@@ -1,7 +1,9 @@
 mixin input(name, type, value, error)
   label.input
-    - const capitalName = name[0].toUpperCase() + name.slice(1);
-    span= capitalName
+    if block
+      block
+    else 
+      = name[0].toUpperCase() + name.slice(1)
     if type === 'checkbox'
       input(name=name, checked=(!!value), type=type)
     else
