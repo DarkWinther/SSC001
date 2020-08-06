@@ -3,9 +3,10 @@
     "package-lock.json",
     "dist/**/*",
     "node_modules/**/*",
-    ".vscode/**/*"
+    ".vscode/**/*",
+    "src/public/**/*"
   ],
-  "ext": "js,ts,pug,json",
+  "ext": "js,ts,pug,json,css",
   "exec": "npm run build && ts-node app.ts",
   "delay": 1
 }

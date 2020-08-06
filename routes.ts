@@ -72,17 +72,13 @@ const uploadFile = (req: Request, prevName?: string) => {
     const image = req.files.coverImg as UploadedFile;
     if (prevName) {
       const path = `./src/public/images/${prevName}`;
-      fs.exists(path, exists => {
-        if (exists) {
-          fs.unlink(path, error => {
-            if (error) console.error(error);
-            console.log(`Deleted file - ${prevName}`);
-            moveFile(image);
-          });
-        } else {
-          moveFile(image);
-        }
+      fs.unlink(path, error => {
+        if (error) console.error(error);
+        console.log(`Deleted file - ${prevName}`);
+        moveFile(image);
       });
+    } else {
+      moveFile(image);
     }
   }
 };

@@ -48,6 +48,18 @@ main {
 }
 
 /* Form */
+form {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+form img {
+  flex: 1 1 0%;
+  max-height: 250px;
+  object-fit: contain;
+  object-position: right center;
+}
+
 form label.input {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -78,13 +90,13 @@ form input[type='submit']:hover {
 }
 
 /* Game list */
-.games {
+ul.games {
   list-style: none;
   padding: 0;
 }
 
 .games li:not(:first-of-type) {
-  margin-top: 16px;
+  margin-top: 40px;
 }
 
 .games li a {
@@ -104,4 +116,18 @@ form input[type='submit']:hover {
 
 .games li a:first-of-type {
   margin-right: 8px;
+}
+
+.game .fields {
+  display: inline-grid;
+  grid-template-columns: 1fr 2fr;
+  width: 80%;
+  vertical-align: middle;
+}
+
+.game img {
+  width: 20%;
+  object-fit: contain;
+  object-position: right center;
+  vertical-align: middle;
 }
