@@ -1,9 +1,16 @@
 import { Router, Request } from 'express';
 import { GameModel, toSimpleGame, ISimpleGame, IGame } from './src/models/game';
-import { create, read, findRandom } from './src/mongoose-util/game-crud';
+import {
+  create,
+  read,
+  findRandom,
+  update,
+  del,
+} from './src/mongoose-util/game-crud';
 import { isValidObjectId } from 'mongoose';
 
 interface GameError {
+  hasError: boolean;
   title?: boolean;
   publisher?: boolean;
   releaseDate?: boolean;
@@ -17,20 +24,26 @@ interface RootState {
   error?: GameError;
 }
 
-const hasValue = (body: Record<string, string>): GameError =>
-  Object.entries(body).reduce(
+const hasValue = (obj: Record<string, unknown>): Record<string, boolean> =>
+  Object.entries(obj).reduce(
     (total, [key, val]) => ({ ...total, [key]: !!val }),
     {}
   );
 
-const validate = (body: Record<string, string>) => {
-  const errors = hasValue(body);
-  if (errors) {
-    errors.title = !errors?.title; // Skal være udfyldt
-    errors.publisher = !errors?.publisher; // Skal være udfyldt
-    // errors.metascore = !errors?.metascore || parseInt(body.metascore) < 1; // Skal være udfyldt og større end 1
-  }
-  return errors;
+const validate = (game: Record<string, unknown>): GameError => {
+  const booleanVals = hasValue(game);
+  const errors: Record<string, boolean> = {
+    ...{
+      title: !booleanVals?.title, // Skal være udfyldt
+      publisher: !booleanVals?.publisher, // Skal være udfyldt
+      // metascore:
+      //   !booleanVals?.metascore || parseInt(game.metascore as string) < 1, // Skal være udfyldt og større end 1
+    },
+  };
+  return {
+    ...errors,
+    hasError: Object.values(errors).includes(true),
+  };
 };
 
 const getCurrentGame = async (req: Request): Promise<ISimpleGame | null> => {
@@ -48,42 +61,62 @@ const getCurrentGame = async (req: Request): Promise<ISimpleGame | null> => {
 export default (app: Router): void => {
   app.get('/', async (req, res) => {
     const randomGame = await findRandom();
-    return res.render('index', { game: toSimpleGame(randomGame) });
+    return res.render('index', {
+      game: toSimpleGame(randomGame),
+      page: 'home',
+    });
   });
 
   app.get('/game', async (req, res) => {
     const allGames = ((await read()) || []) as IGame[];
-    return res.render('pages/allGames', {
+    return res.render('pages/all-games', {
       games: allGames.map(game => toSimpleGame(game)),
+      page: 'game',
     });
   });
 
   app.get('/edit', async (req, res) => {
     const selected = await getCurrentGame(req);
-    return res.render('pages/editGame', { current: selected });
+    return res.render('pages/edit-game', { current: selected, page: 'edit' });
   });
 
-  // app.post('/', async (req, res) => {
-  //   const rootState = await getRootState(req);
+  app.post('/edit', async (req, res) => {
+    const selected = await getCurrentGame(req);
+    // Hvis brugeren har valgt at ændre et spil
+    if (selected) {
+      const updatedGame = {
+        _id: selected._id,
+        ...toSimpleGame(req.body),
+      };
+      if (!validate(updatedGame).hasError) {
+        await update(new GameModel(updatedGame));
+      }
+      return res.render('pages/edit-game', {
+        current: updatedGame,
+        page: 'edit',
+        error: validate(updatedGame),
+      });
+    }
 
-  //   if (!Object.values(validate(req.body)).includes(true)) {
-  //     const obj: ISimpleGame = Object.entries({
-  //       title: req.body.title,
-  //       publisher: req.body.publisher,
-  //       releaseDate: req.body.releaseDate && new Date(req.body.releaseDate),
-  //       genre: req.body.genre,
-  //       metascore: !isNaN(parseInt(req.body.metascore))
-  //         ? parseInt(req.body.metascore)
-  //         : undefined,
-  //       goty: !!req.body.goty,
-  //     })
-  //       .filter(([k, v]) => !!v)
-  //       .reduce((total, [key, val]) => ({ ...total, [key]: val }), {});
+    // Hvis brugeren har valgt at oprette et spil
+    const newGame = toSimpleGame(req.body);
+    if (!validate(newGame).hasError) {
+      create(new GameModel(newGame));
+    }
+    return res.render('pages/edit-game', {
+      current: newGame,
+      page: 'edit',
+      error: validate(newGame),
+    });
+  });
 
-  //     create(new GameModel(obj));
-  //   }
-  //   res.render('index', rootState);
-  // });
+  app.get('/delete', async (req, res) => {
+    const selected = await getCurrentGame(req);
+    if (selected && selected._id) {
+      del(selected._id);
+    }
+    res.redirect('/game');
+  });
 
   app.get('*', (req, res) => res.send('404 Error'));
 };

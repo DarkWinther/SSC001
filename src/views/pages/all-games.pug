@@ -1,0 +1,11 @@
+extends ../index.pug
+include ../mixins/game.pug
+
+block content
+  if games
+    ul.games
+      each game in games
+        li
+          +game(game)
+          a(href=`/edit?id=${game._id}`) RET
+          a(href=`/delete?id=${game._id}` onclick="return confirm('Er du sikker?')") SLET

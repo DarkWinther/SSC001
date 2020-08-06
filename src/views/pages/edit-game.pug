@@ -1,0 +1,11 @@
+extends ../index.pug
+include ../mixins/input.pug
+block content
+  form(method='post')
+    +input("title", 'text', current && current.title, error && error.title && 'Du skal indtaste en titel')
+    +input('publisher', 'text', current && current.publisher, error && error.publisher && 'Du skal indtaste en publisher')
+    +input('releaseDate', 'date', current && current.releaseDateInpStr, error && error.releaseDate && 'Du skal indtaste en dato')
+    +input('genre', 'text', current && current.genre, error && error.genre && 'Du skal indtaste en genre')
+    +input('metascore', 'number', current && current.metascore, error && error.metascore && 'Du skal indaste en score større end nul')
+    +input('goty', 'checkbox', current && current.goty, error && error.goty && 'Du skal vælge goty')
+    input(type='submit', value='SEND')

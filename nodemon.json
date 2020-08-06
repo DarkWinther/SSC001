@@ -6,6 +6,6 @@
     ".vscode/**/*"
   ],
   "ext": "js,ts,pug,json",
-  "exec": "ts-node app.ts",
+  "exec": "npm run build && ts-node app.ts",
   "delay": 1
 }

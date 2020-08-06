@@ -6,7 +6,8 @@ html(lang="en")
 
   body
     include ./partials/nav
-    block content
+    .wrapper
       main
-        include ./mixins/game.pug
-        +game(game)
+        block content
+          include ./mixins/game.pug
+          +game(game)
