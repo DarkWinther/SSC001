@@ -1,7 +1,6 @@
 {
   "ignore": [
     "package-lock.json",
-    "dist/**/*",
     "node_modules/**/*",
     ".vscode/**/*",
     "src/public/**/*"
