@@ -17,7 +17,8 @@ export const editRoute = (app: Application): void => {
       const updatedGame = {
         ...toSimpleGame(req.body),
         _id: selected._id,
-        coverImg: (req.files?.coverImg as UploadedFile)?.name,
+        coverImg:
+          selected.coverImg || (req.files?.coverImg as UploadedFile)?.name,
       };
       const validation = validate(updatedGame);
 

@@ -76,18 +76,19 @@ export const validate = (game: Record<string, unknown>): GameError => {
   }
 
   if (
-    game.metascore &&
-    ((typeof game.metascore === 'string' && isNaN(parseInt(game.metascore))) ||
-      typeof game.metascore !== 'number')
+    (game.metascore &&
+      typeof game.metascore !== 'number' &&
+      typeof game.metascore !== 'string') ||
+    (typeof game.metascore === 'string' && isNaN(parseInt(game.metascore)))
   ) {
     errors.hasError = true;
     errors.metascore = 'Metascore skal være et tal';
   } else if (
-    game.metascore &&
-    ((typeof game.metascore === 'string' &&
+    (game.metascore &&
+      typeof game.metascore === 'string' &&
       !isNaN(parseInt(game.metascore)) &&
       parseInt(game.metascore) <= 0) ||
-      (typeof game.metascore === 'number' && game.metascore <= 0))
+    (typeof game.metascore === 'number' && game.metascore <= 0)
   ) {
     errors.hasError = true;
     errors.metascore = 'Metascore skal være større end nul';
