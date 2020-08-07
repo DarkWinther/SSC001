@@ -1,7 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
-import initRoutes from './routes';
 import fileUpload from 'express-fileupload';
+import { initRoutes } from './src/routes';
 
 const app = express();
 const port = 3000;

@@ -5,6 +5,9 @@ mixin game(game)
         unless key === '_id' || key === 'releaseDateInpStr' || key === 'coverImg'
           - const capitalKey = key[0].toUpperCase() + key.slice(1);
           span.key #{capitalKey}:
-          span.val #{val}
+          if key === 'title'
+            a.val(href=`/${game._id}`) #{val}
+          else
+            span.val #{val}
     if game.coverImg
       img(src=`images/${game.coverImg}`)

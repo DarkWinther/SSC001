@@ -8,5 +8,5 @@
   ],
   "ext": "js,ts,pug,json,css",
   "exec": "npm run build && ts-node app.ts",
-  "delay": 1
+  "delay": "1000ms"
 }

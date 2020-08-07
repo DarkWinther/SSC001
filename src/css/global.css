@@ -67,7 +67,7 @@ form label.input {
 }
 
 form label.input:not(:first-of-type) {
-  margin-top: 10px;   
+  margin-top: 10px;
 }
 
 form label.input .error {
@@ -99,7 +99,7 @@ ul.games {
   margin-top: 40px;
 }
 
-.games li a {
+.games li a.buttonLink {
   display: inline-block;
   color: black;
   text-decoration: none;
@@ -109,12 +109,12 @@ ul.games {
   border-radius: 4px;
 }
 
-.games li a:hover {
+.games li a.buttonLink:hover {
   background-color: grey;
   border-color: grey;
 }
 
-.games li a:first-of-type {
+.games li a.buttonLink:first-of-type {
   margin-right: 8px;
 }
 

@@ -1,7 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface ISimpleGame {
-  [key: string]: unknown;
   _id?: string;
   title?: string;
   publisher?: string;
@@ -38,7 +37,7 @@ export const GameModel = model<IGame>('Game', GameSchema, 'games');
 export const toSimpleGame = (game?: IGame | null): ISimpleGame => {
   if (!game) return {};
   let dateStr = '';
-  if (game?.releaseDate) {
+  if (game.releaseDate) {
     const newDate = new Date(game.releaseDate);
     dateStr = `${newDate.getFullYear()}-${String.prototype.padStart.call(
       newDate.getMonth() + 1,

@@ -7,5 +7,5 @@ block content
       each game in games
         li
           +game(game)
-          a(href=`/edit?id=${game._id}`) RET
-          a(href=`/delete?id=${game._id}` onclick="return confirm('Er du sikker?')") SLET
+          a.buttonLink(href=`/edit?id=${game._id}`) RET
+          a.buttonLink(href=`/delete?id=${game._id}` onclick="return confirm('Er du sikker?')") SLET

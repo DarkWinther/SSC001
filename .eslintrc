@@ -1,5 +1,4 @@
 {
-  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -8,7 +7,7 @@
     "prettier"
   ],
   "plugins": ["@typescript-eslint", "pug", "prettier"],
-  "ignorePatterns": ["tsconfig.json"],
+  "ignorePatterns": ["tsconfig.json", "src/public"],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]

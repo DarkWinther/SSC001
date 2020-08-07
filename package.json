@@ -4,11 +4,13 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "build": "csso ./src/css/global.css --output ./src/public/css/global.min.css",
+    "build": "csso ./src/css/global.css -o ./src/public/css/global.min.css",
     "dev": "nodemon",
     "tsc": "tsc",
-    "lint": "eslint --ext js,ts,json .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "stylelint src/**/*.css && eslint --ext js,ts,json, .",
+    "lint:fix": "stylelint src/**/*.css --fix && eslint --ext js,ts,json, . --fix",
+    "prettier": "prettier -c .",
+    "prettier:fix": "prettier --write .",
     "insertDefaults": "ts-node src/mongoose-util/insert-defaults.ts"
   },
   "repository": {
@@ -26,7 +28,6 @@
     "pug": "^3.0.0"
   },
   "devDependencies": {
-    "@prettier/plugin-pug": "^1.5.0",
     "@types/express": "^4.17.7",
     "@types/express-fileupload": "^1.1.3",
     "@types/mongoose": "^5.7.34",
@@ -42,6 +43,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-pug": "^1.2.2",
     "prettier": "^2.0.5",
+    "stylelint": "^13.6.1",
+    "stylelint-config-standard": "^20.0.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   }
