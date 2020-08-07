@@ -25,12 +25,14 @@ export const editRoute = (app: Application): void => {
       if (!validation.hasError) {
         uploadFile(req, selected.coverImg);
         await update(new GameModel(updatedGame));
+        return res.redirect('/game');
+      } else {
+        return res.render('pages/edit-game', {
+          current: updatedGame,
+          page: 'edit',
+          error: validation,
+        });
       }
-      return res.render('pages/edit-game', {
-        current: updatedGame,
-        page: 'edit',
-        error: validation,
-      });
     }
 
     // Hvis brugeren har valgt at oprette et spil
@@ -43,11 +45,13 @@ export const editRoute = (app: Application): void => {
     if (!validation.hasError) {
       uploadFile(req);
       create(new GameModel(newGame));
+      return res.redirect('/game');
+    } else {
+      return res.render('pages/edit-game', {
+        current: newGame,
+        page: 'edit',
+        error: validation,
+      });
     }
-    return res.render('pages/edit-game', {
-      current: newGame,
-      page: 'edit',
-      error: validation,
-    });
   });
 };

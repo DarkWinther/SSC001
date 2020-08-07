@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "build": "csso ./src/css/global.css -o ./src/public/css/global.min.css",
+    "build": "mkdirp ./src/public/css/ && csso ./src/css/global.css -o ./src/public/css/global.min.css",
     "dev": "nodemon",
     "tsc": "tsc",
     "lint": "stylelint src/**/*.css && eslint --ext js,ts,json, .",
@@ -42,6 +42,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-pug": "^1.2.2",
+    "mkdirp": "^1.0.4",
     "prettier": "^2.0.5",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
